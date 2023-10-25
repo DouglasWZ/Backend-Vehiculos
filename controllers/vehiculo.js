@@ -9,12 +9,12 @@ const registrar = async (req, res) => {
   // prevenir vehiculos duplicados
   const existeVehiculo = await Vehiculo.findOne({ placa });
 
-    if (existeVehiculo) {
-        const error = new Error('Vehículo ya registrado');
-        return res.status(400).json({ 
-            msg: error.message 
-        })
-    }
+  if (existeVehiculo) {
+    const error = new Error("Vehículo ya registrado");
+    return res.status(400).json({
+      msg: error.message,
+    });
+  }
 
   try {
     // Guardar nuevo vehículo
@@ -30,13 +30,19 @@ const registrar = async (req, res) => {
 };
 
 // Mostrar Vehiculos
-const mostrar = (req, res) => {
-  res.json({
-    msg: "Get API - Mostrar Vehiculos",
-  });
+const mostrarVehículos = async (req, res) => {
+  const vehiculos = await Vehiculo.find();
+
+  try {
+    res.status(200).json({
+      vehiculos
+    });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 module.exports = {
   registrar,
-  mostrar,
+  mostrarVehículos,
 };
