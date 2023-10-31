@@ -35,7 +35,27 @@ const mostrarVehículos = async (req, res) => {
 
   try {
     res.status(200).json({
-      vehiculos
+      vehiculos,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// Eliminar Vehículo
+const eliminarVehiculo = async (req, res) => {
+  const { placa } = req.params;
+  const vehiculo = await Vehiculo.findOne(placa);
+
+  // Si no hay vehículo
+  if (!vehiculo) {
+    return res.status(404).json({ msg: "Vehículo no encontrado" });
+  }
+
+  try {
+    await vehiculo.deleteOne();
+    res.status(200).json({
+      msg: `Vehículo con placa ${placa} eliminado correctamente`,
     });
   } catch (error) {
     console.log(error);
@@ -45,4 +65,5 @@ const mostrarVehículos = async (req, res) => {
 module.exports = {
   registrar,
   mostrarVehículos,
+  eliminarVehiculo,
 };

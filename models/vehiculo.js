@@ -14,7 +14,8 @@ const VehiculoSchema = Schema({
     placa: {
         type: String,
         required: [true, 'La placa es obligatoria'],
-        trim: true
+        trim: true,
+        unique: true
     }
 });
 
