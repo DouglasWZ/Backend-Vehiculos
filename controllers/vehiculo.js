@@ -44,8 +44,8 @@ const mostrarVehículos = async (req, res) => {
 
 // Eliminar Vehículo
 const eliminarVehiculo = async (req, res) => {
-  const { placa } = req.params;
-  const vehiculo = await Vehiculo.findOne(placa);
+  const { placa } = req.body;
+  const vehiculo = await Vehiculo.findOne({placa});
 
   // Si no hay vehículo
   if (!vehiculo) {
@@ -61,6 +61,11 @@ const eliminarVehiculo = async (req, res) => {
     console.log(error);
   }
 };
+
+// Actualizar Vehículo
+const actualizarVehiculo = async (req, res) => {
+  const {placa} = req.params;
+}
 
 module.exports = {
   registrar,
