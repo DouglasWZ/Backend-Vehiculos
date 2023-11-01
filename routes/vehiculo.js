@@ -3,7 +3,7 @@ const { check } = require('express-validator');
 const { validarCampos } = require('../middlewares/validarCampos');
 
 // Controlador
-const { registrar, mostrarVehículos, eliminarVehiculo } = require('../controllers/vehiculo');
+const { registrar, mostrarVehículos, eliminarVehiculo, actualizarVehiculo } = require('../controllers/vehiculo');
 
 const router = Router();
 
@@ -17,6 +17,7 @@ router.post('/', [
 
 router.get('/', mostrarVehículos);
 router.delete('/', eliminarVehiculo);
+router.put('/:placa', actualizarVehiculo);
 
 module.exports = router;
 
