@@ -1,5 +1,6 @@
 const express = require('express');
 const dbConnection = require('../database/config');
+const cors = require('cors');
 
 class Server {
 
@@ -26,6 +27,27 @@ class Server {
 
     // Middlewares
     middlewares(){
+
+        // Cors
+       const dominiosPermitidos = [process.env.FRONTEND_URL];
+
+        const corsOptions = {
+            origin: function (origin, callback) {
+                if (dominiosPermitidos.indexOf(origin) !== -1) {
+                    callback(null, true)
+                } else {
+                    callback(new Error('No permitido por CORS'));
+                }
+            }
+        }
+
+        this.app.use(cors(corsOptions));
+
+        const DIRECTORIO_PERMITIDO_CORS = process.env.FRONTEND_URL;
+        this.app.use(cors({
+            origin: DIRECTORIO_PERMITIDO_CORS
+        })); 
+
          // Lectura y parseo del body
          this.app.use(express.json());
     }
