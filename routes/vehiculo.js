@@ -16,7 +16,7 @@ router.post('/', [
 ], registrar);
 
 router.get('/', mostrarVehículos);
-router.delete('/', eliminarVehiculo);
+router.delete('/:placa', eliminarVehiculo);
 router.put('/:placa', actualizarVehiculo);
 
 module.exports = router;
